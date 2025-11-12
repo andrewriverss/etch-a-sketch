@@ -20,12 +20,35 @@ const eraseBtn = document.getElementById('eraseBtn');
 const resizeBtn = document.getElementById('resizeBtn');
 const clearBtn = document.getElementById('clearBtn');
 
-// Initialize color palette: create color buttons and set up event listeners
+// Initialize color palette: create color buttons and set up event listener
+function initColorPalette() {
+    neonColors.forEach((color, index) => {
+        const btn = document.createElement('button');
+        btn.className = 'color-btn' + (index === 0 ? ' active' : '');
+        btn.style.backgroundColor = color.value;
+        btn.title = color.name;
 
+        btn.addEventListener('click', () => selectColor(color.value, btn));
 
-
+        colorGrid.appendChild(btn);
+    })
+}
 
 // Select color: update current color and button states
+function selectColor(color, btn) {
+    currentColor = color;
+    isEraser = false;
+
+    drawBtn.classList.add('active');
+    eraseBtn.classList.remove('active');
+
+    document.querySelectorAll('.color-btn').forEach(b => {
+        b.classList.remove('active');
+    })
+    btn.classList.add('active');
+}
+
+
 // Initialize grid: create grid cells and set up event listeners
 // Paint cell: apply current color or erase
 // Drawing state: track mouse state for drawing
@@ -33,3 +56,4 @@ const clearBtn = document.getElementById('clearBtn');
 // Clear button: reset grid
 // Resize button: prompt for new size and reinitialize grid
 // Initialize app
+initColorPalette();
