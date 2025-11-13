@@ -86,11 +86,33 @@ document.addEventListener('mouseup', () => isDrawing = false );
 drawingGrid.addEventListener('mouseleave', () => isDrawing = false );
 
 // Mode buttons: Draw and Erase
+drawBtn.addEventListener('click', () => {
+    isEraser = false;
+    drawBtn.classList.add('active');
+    eraseBtn.classList.remove('active');
+});
 
+eraseBtn.addEventListener('click', () => {
+    isEraser = true;
+    eraseBtn.classList.add('active');
+    drawBtn.classList.remove('active');
+});
 
+// Resize button: prompt for new size and reinitialize grid
+resizeBtn.addEventListener('click', () => {
+    let newSize = prompt('Enter new grid size (range 2-100)');
+    newSize = parseInt(newSize);
+    if (!isNaN(newSize) && newSize >= 2 && newSize <= 100) {
+        gridSize = newSize;
+        initGrid();
+    } else {
+        alert('Invalid size!');
+    }
+});
 
 // Clear button: reset grid
-// Resize button: prompt for new size and reinitialize grid
+clearBtn.addEventListener('click', initGrid);
+
 // Initialize app
 initColorPalette();
 initGrid();
