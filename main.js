@@ -20,6 +20,7 @@ const eraseBtn = document.getElementById('eraseBtn');
 const resizeBtn = document.getElementById('resizeBtn');
 const clearBtn = document.getElementById('clearBtn');
 
+// FUNCTIONS
 // Initialize color palette: create color buttons and set up event listener
 function initColorPalette() {
     neonColors.forEach((color, index) => {
@@ -48,12 +49,48 @@ function selectColor(color, btn) {
     btn.classList.add('active');
 }
 
-
 // Initialize grid: create grid cells and set up event listeners
+function initGrid() {
+    drawingGrid.innerHTML = '';
+
+    for (let i = 0; i < gridSize; i++) {
+        const row = document.createElement('div');
+        row.classList.add('grid-row');
+        drawingGrid.appendChild(row);
+        for (let k = 0; k < gridSize; k++) {
+            const cell = document.createElement('div');
+            cell.classList.add('grid-cell');
+            cell.style.backgroundColor = 'transparent';
+            
+            cell.addEventListener('mousedown', paintCell);
+            cell.addEventListener('mouseover', (e) => {
+                if (isDrawing) paintCell(e);
+            });
+
+            row.appendChild(cell);
+        }
+    }
+}
+
 // Paint cell: apply current color or erase
+function paintCell(e) {
+    const color = isEraser ? 'transparent' : currentColor;
+    e.target.style.backgroundColor = color;
+    e.target.style.boxShadow = color !== 'transparent' ? `0 0 8px ${color}` : 'none';
+}
+
+// EVENT LISTENERS
 // Drawing state: track mouse state for drawing
+drawingGrid.addEventListener('mousedown', () => isDrawing = true);
+document.addEventListener('mouseup', () => isDrawing = false );
+drawingGrid.addEventListener('mouseleave', () => isDrawing = false );
+
 // Mode buttons: Draw and Erase
+
+
+
 // Clear button: reset grid
 // Resize button: prompt for new size and reinitialize grid
 // Initialize app
 initColorPalette();
+initGrid();
