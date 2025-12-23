@@ -260,7 +260,6 @@ body {
 
 .github-logo {
     width: 2rem;
-    filter: invert();
     transition: all 0.2s ease-in-out;
 }
 
