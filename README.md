@@ -4,7 +4,7 @@ A browser-based drawing pad with a modern neon aesthetic, built to practice DOM 
 
 ## Live Demo
 
-**[Click here for a live demo](https://andrewriverss.github.io/etch-a-sketch/)**
+**[Click here for a live demo](https://andres-rios-dev.github.io/etch-a-sketch/)**
 
 ## What I Learned
 
